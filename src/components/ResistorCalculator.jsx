@@ -10,6 +10,7 @@ const ResistorCalculator = () => {
   const [bandCColor, setBandCColor] = useState('black');
   const [bandDColor, setBandDColor] = useState('brown');
   const [ohmValue, setOhmValue] = useState(0);
+  const [tolerance, setTolerance] = useState(0);
 
   const [bandColors, setBandColors] = useState();
 
@@ -22,7 +23,8 @@ const ResistorCalculator = () => {
     const resp = await calculateOhms({
       bandAColor,bandBColor,bandCColor,bandDColor
     });
-    setOhmValue(resp.ohms)
+    setOhmValue(resp.ohms);
+    setTolerance(bandColors?.tolerances[bandDColor]);
   };
 
   useEffect(()=>{
@@ -61,7 +63,7 @@ const ResistorCalculator = () => {
         />
         <ButtonCustom onClick={calculateResistance} label={'Calculate'} className={'rounded border text-center font-bold p-3 mt-10 bg-white'} name='btnCalculate'/>
       
-        <ResultValue ohmValue={ohmValue} />
+        <ResultValue ohmValue={ohmValue} tolerance={tolerance}/>
     </div>
   );
 };
